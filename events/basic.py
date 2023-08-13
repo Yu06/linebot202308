@@ -2,85 +2,85 @@ from line_bot_api import *
 
 
 def about_us_event(event):
-    emojis = [
-        {
-            "index": 0, 
-            "productId": "5ac21a18040ab15980c9b43e", 
-            "emojiId": "009"
-        }, 
-        {
-            "index": 16, 
-            "productId": "5ac21a18040ab15980c9b43e", 
-            "emojiId": "014"
-        }
-    ]
+    
+    emoji = [
+            {
+                "index":0,
+                "productId": "5ac21c46040ab15980c9b442",
+                "emojiId": "020"
+            },
+                        {
+                "index":8,
+                "productId": "5ac21c46040ab15980c9b442",
+                "emojiId": "020"
+            }
+        ]
+    
+    text_message = TextSendMessage(text = '''$ +++++ $ 
+Hello~ 歡迎您的加入~
+成為 ++ 的好友!
+我是 ++ 您的小幫手
+這裡有許多的股票資訊
+可以直接點選下面的功能來使用~''', emojis = emoji)
+  
+  
+   # message = TextSendMessage(text = event.message.text)
+    #line_bot_api.reply_message(event.reply_token,message)
 
-    welcome_message = TextSendMessage(text='''$ Agave Finance $
-    您好，歡迎加入成為 Agave Finance 的好友!!!
-    我是Agave財經小幫手~
-    下方選單有：
-    股票查詢、油價查詢、匯率查詢、自動提醒、資訊整理、使用說明
-    使用上有任何問題可以參考使用說明''', emojis=emojis)
-
-    sticker_message = StickerSendMessage(
-        package_id="11537", sticker_id="52002735"
+    Sticker_message = StickerSendMessage(
+        package_id = '11539',
+        sticker_id='52114118'
     )
-
-    button_template = Template_msg()
-
+    buttons_template = TemplateSendMessage(
+            alt_text='小幫手 template',
+            template=ButtonsTemplate(
+                title='選擇服務',
+                text='請選擇',
+                #放imgur的網址
+                thumbnail_image_url='https://i.imgur.com/M0DK02o.png',
+                actions=[
+                  MessageTemplateAction(
+                      label='油價查詢',
+                       text='油價查詢'
+                   ),
+                   MessageTemplateAction(
+                       label='匯率查詢',
+                       text='匯率查詢'
+                   ),
+                   MessageTemplateAction(
+                       label='股票查詢',
+                       text='股票查詢'
+                   )
+                ]
+            )
+        )   
     line_bot_api.reply_message(
-        event.reply_token, 
-        [welcome_message, sticker_message, button_template]
-    )
+        event.reply_token,
+        [text_message, Sticker_message,buttons_template])
+    
+#if event.message.text == "Tyler":
+
+  #      line_bot_api.reply_message(event.reply_token, buttons_template)
 
 
-def push_msg(event, msg):
+    
+def push_msg(event,msg):
     try:
         user_id = event.source.user_id
-        line_bot_api.push_message(user_id, TextSendMessage(text=msg))
+        line_bot_api.push_message(user_id,TextSendMessage(text=msg))
     except:
         room_id = event.source.room_id
-        line_bot_api.push_message(room_id, TextSendMessage(msg))
+        line_bot_api.push_message(room_id,TextSendMessage(text=msg))
 
 
 def Usage(event):
-    push_msg(
-        event, 
-        """
-        ℹ查詢方法ℹ
-        🧞‍♂小幫手可以查詢股價、油價、匯率
-        ➊股價查詢➡輸入股票代號
-        ➋油價查詢➡輸入92、95、98、超柴
-        ➌匯率查詢➡輸入國家
-        ➍test
-        ➎test
-        ➏test
-        """
-    )
-
-
-def Template_msg():
-    button_template = TemplateSendMessage(
-            alt_text="小幫手template", 
-            template=ButtonsTemplate(
-                title="選擇服務", 
-                text="請選擇", 
-                thumbnail_image_url="https://i.imgur.com/27uxIhZ.jpg", 
-                actions=[
-                    MessageTemplateAction(
-                        label="股價查詢", 
-                        text="股價查詢"
-                    ), 
-                    MessageTemplateAction(
-                        label="油價查詢", 
-                        text="油價查詢"
-                    ), 
-                    MessageTemplateAction(
-                        label="匯率查詢", 
-                        text="匯率查詢"
-                    ), 
-                ]
-                )
-        )
-    
-    return button_template
+    push_msg(event,"⭐⭐ 查尋方法 ⭐⭐\
+             \n\
+             \n👉小幫手可以查詢\
+             \n1️⃣油價2️⃣匯率3️⃣股票 \
+             \n\
+             \n👉油價通知▶️最新油價\
+             \n👉匯率▶️換匯USD/TWD\
+             \n👉使用說明▶️不懂請點我\
+             \n👉自動提醒▶️開啟通知\
+             \n👉趨勢分析▶️股票分析")
