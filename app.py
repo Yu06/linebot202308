@@ -2,7 +2,7 @@ from line_bot_api import *
 from events.basic import *
 from events.oil import *
 from events.Msg_Template import *
-from model.pymongo import *
+from model.mongodb import *
 from events.EXRate import *
 import re
 import twstock
@@ -84,7 +84,7 @@ def handle_message(event):
         )
 
     if re.match("想知道股價[0-9]", msg):
-        stockNumber = msg[-4:]
+        stockNumber = msg[5:9]
         btn_msg = stock_reply_other(stockNumber)
         line_bot_api.push_message(uid, btn_msg)
         return 0
