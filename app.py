@@ -83,26 +83,42 @@ def handle_message(event):
             TextSendMessage("請輸入'#' + '股票代號'\n範例：#2330")
         )
 
-    if re.match("想知道股價", msg):
-        stockNumber = msg[5:9]
+    # -----股價查詢-----
+    if re.match("想知道股價[0-9]", msg):
+        stockNumber = msg[5:]
         btn_msg = stock_reply_other(stockNumber)
         line_bot_api.push_message(uid, btn_msg)
         return 0
-    if re.match('股票清單', msg):
-        line_bot_api.push_message(uid, TextSendMessage('稍等一下，查詢中...'))
-        content = show_stock_setting(user_name, uid)
+    
+    # -----新增使用者關注的股票到 Mongodb -----
+    if re.match('關注[0-9]{4}[<>][0-9]' , msg): #使用者新增股票到股票清單
+        stockNumber = msg[2:6]
+        content = write_my_stock(uid, user_name, stockNumber, msg[6:7], msg[7:])
+        line_bot_api.push_message(uid, TextSendMessage(content))
+    else:
+        content = write_my_stock(uid, user_name, stockNumber,"未設定","未設定")
         line_bot_api.push_message(uid, TextSendMessage(content))
         return 0
 
-    # 刪除使用者特定的股票
-    if re.match('刪除[0-9]{4}', msg):
-        content = delete_my_stock(user_name, msg[2:])
-        line_bot_api.push_message(uid, TextSendMessage(content))
-        return 0
-    if re.match('清空股票', msg):
-        content = delete_my_allstock(user_name, uid)
-        line_bot_api.push_message(uid, TextSendMessage(content))
-        return 0
+
+
+
+
+    # if re.match('股票清單', msg):
+    #     line_bot_api.push_message(uid, TextSendMessage('稍等一下，查詢中...'))
+    #     content = show_stock_setting(user_name, uid)
+    #     line_bot_api.push_message(uid, TextSendMessage(content))
+    #     return 0
+
+    # # 刪除使用者特定的股票
+    # if re.match('刪除[0-9]{4}', msg):
+    #     content = delete_my_stock(user_name, msg[2:])
+    #     line_bot_api.push_message(uid, TextSendMessage(content))
+    #     return 0
+    # if re.match('清空股票', msg):
+    #     content = delete_my_allstock(user_name, uid)
+    #     line_bot_api.push_message(uid, TextSendMessage(content))
+        # return 0
     if (emsg.startswith('#')):
         text = emsg[1:]
         content = ""

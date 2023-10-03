@@ -1,16 +1,17 @@
 from pymongo import MongoClient
 import datetime
 
+# Authentication Database 認證資料庫
 stockDB = "line_bot_usage"
 # collection = "stock"
 
 
 def constructor_stock():
-    client = MongoClient("mongodb://test123:test321@ac-1mop3l8-shard-00-00.yexjncx.mongodb.net:27017,ac-1mop3l8-shard-00-01.yexjncx.mongodb.net:27017,ac-1mop3l8-shard-00-02.yexjncx.mongodb.net:27017/?ssl=true&replicaSet=atlas-1zn633-shard-0&authSource=admin&retryWrites=true&w=majority")
+    client = MongoClient("mongodb://chiachia102:chiA8686@ac-0gzbzbw-shard-00-00.j2eo8as.mongodb.net:27017,ac-0gzbzbw-shard-00-01.j2eo8as.mongodb.net:27017,ac-0gzbzbw-shard-00-02.j2eo8as.mongodb.net:27017/?ssl=true&replicaSet=atlas-jwxrw5-shard-0&authSource=admin&retryWrites=true&w=majority")
     db = client[stockDB]
     return db
 
-
+#---------------------------新增使用者股票 -----------------------------------------
 def update_my_stock(user_name, stockNumber, condition, target_price):
     """
     更新暫存的股票名稱
