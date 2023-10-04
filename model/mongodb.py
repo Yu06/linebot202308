@@ -7,7 +7,7 @@ stockDB = "linebot"
 
 
 def constructor_stock():
-    client = MongoClient("mongodb://chiachia102:chiA8686@ac-0gzbzbw-shard-00-00.j2eo8as.mongodb.net:27017,ac-0gzbzbw-shard-00-01.j2eo8as.mongodb.net:27017,ac-0gzbzbw-shard-00-02.j2eo8as.mongodb.net:27017/?ssl=true&replicaSet=atlas-jwxrw5-shard-0&authSource=admin&retryWrites=true&w=majority")
+    client = MongoClient("mongodb://chiachia102:chiachia102@ac-0gzbzbw-shard-00-00.j2eo8as.mongodb.net:27017,ac-0gzbzbw-shard-00-01.j2eo8as.mongodb.net:27017,ac-0gzbzbw-shard-00-02.j2eo8as.mongodb.net:27017/?ssl=true&replicaSet=atlas-jwxrw5-shard-0&authSource=admin&retryWrites=true&w=majority")
     db = client[stockDB]
     return db
 
