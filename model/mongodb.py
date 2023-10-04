@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import datetime
 
 # Authentication Database 認證資料庫
-stockDB = "line_bot_usage"
+stockDB = "linebot"
 # collection = "stock"
 
 
