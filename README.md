@@ -1,2 +1,2 @@
-# AgaveGoGo
+# line bot
 Linebot test
